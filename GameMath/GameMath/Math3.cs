@@ -3,8 +3,18 @@ using System.Runtime.CompilerServices;
 
 namespace GameMath
 {
+    /// <summary>
+    /// Provides static methods for 3d math.
+    /// </summary>
     public static class Math3
     {
+        /// <summary>
+        /// Calculates the difference of two angles.
+        /// </summary>
+        /// <param name="pointOfView">The point of view.</param>
+        /// <param name="angle_1">The first angle.</param>
+        /// <param name="angle_2">The second angle.</param>
+        /// <returns>Degree.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float AngleDifference(Vector3 pointOfView, Vector3 angle_1, Vector3 angle_2)
         {
@@ -14,6 +24,13 @@ namespace GameMath
             return (deltaX * deltaX + deltaY * deltaY) * pointOfView.Length();
         }
 
+        /// <summary>
+        /// Calculates the difference of two angles.
+        /// </summary>
+        /// <param name="distance">The distance of our view point.</param>
+        /// <param name="viewAngle">The first angle.</param>
+        /// <param name="targetAngle">The second angle.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float AngleDifference(float distance, Vector3 viewAngle, Vector3 targetAngle)
         {
@@ -23,6 +40,13 @@ namespace GameMath
             return (float)Math.Sqrt(pitch * pitch + yaw * yaw);
         }
 
+        /// <summary>
+        /// Applies a linear smooth onto an angle.
+        /// </summary>
+        /// <param name="source">The source angle.</param>
+        /// <param name="dest">The destination angle.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 AngleLinearSmooth(Vector3 source, Vector3 dest, float value)
         {
@@ -35,6 +59,11 @@ namespace GameMath
             return dest;
         }
 
+        /// <summary>
+        /// Creates an angle from a vector.
+        /// </summary>
+        /// <param name="vec">The vector.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 AngleVector(Vector3 vec)
         {
@@ -50,6 +79,12 @@ namespace GameMath
             return new Vector3(cosPitch * cosYaw, cosPitch * sinYaw, -sinPitch);
         }
 
+        /// <summary>
+        /// Calculates the angle.
+        /// </summary>
+        /// <param name="source">The source position.</param>
+        /// <param name="dest">The destination position.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 CalcAngle(Vector3 source, Vector3 dest)
         {
@@ -67,6 +102,13 @@ namespace GameMath
             return ret;
         }
 
+        /// <summary>
+        /// Gets the fov.
+        /// </summary>
+        /// <param name="viewAngle">The view angle.</param>
+        /// <param name="targetAngle">The target angle.</param>
+        /// <param name="distance">The distance.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float GetFov(Vector3 viewAngle, Vector3 targetAngle, float distance)
         {
@@ -76,6 +118,13 @@ namespace GameMath
             return (float)Math.Sin(deltaX * deltaX + deltaY * deltaY) * distance;
         }
 
+        /// <summary>
+        /// Gets the fov.
+        /// </summary>
+        /// <param name="angle">The view angle.</param>
+        /// <param name="src">The origin.</param>
+        /// <param name="dst">The destination.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float GetFov(Vector3 angle, Vector3 src, Vector3 dst)
         {
@@ -100,12 +149,23 @@ namespace GameMath
             return vTempAngles.Length();
         }
 
+        /// <summary>
+        /// Returns the middle of two vector.
+        /// </summary>
+        /// <param name="min">The minimum.</param>
+        /// <param name="max">The maximum.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 VectorMid(Vector3 min, Vector3 max)
         {
             return ((max - min) / 2.0f) + min;
         }
 
+        /// <summary>
+        /// Creates a vector from an angle
+        /// </summary>
+        /// <param name="forward">The forward (direction) vector.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 VectorAngles(Vector3 forward)
         {
@@ -131,6 +191,12 @@ namespace GameMath
             return new Vector3(pitch, yaw, 0);
         }
 
+        /// <summary>
+        /// Transfroms a vector
+        /// </summary>
+        /// <param name="vec">The vector.</param>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 VectorTransform(Vector3 vec, Matrix3x4 matrix)
         {
@@ -141,6 +207,13 @@ namespace GameMath
             return new Vector3(x, y, z);
         }
 
+        /// <summary>
+        /// Rotates a vector around a position
+        /// </summary>
+        /// <param name="targetOrigin">The target origin.</param>
+        /// <param name="positionToRotate">The position to rotate.</param>
+        /// <param name="rotationYaw">The rotation yaw.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 VectorRotatePosition(Vector3 targetOrigin, Vector3 positionToRotate, float rotationYaw)
         {
@@ -156,6 +229,14 @@ namespace GameMath
             return new Vector3(deltaTarget.X + targetOrigin.X, deltaTarget.Y + targetOrigin.Y, positionToRotate.Z);
         }
 
+        /// <summary>
+        /// Rotates a vectors yaw around a position
+        /// </summary>
+        /// <param name="targetOrigin">The target origin.</param>
+        /// <param name="positionToRotate">The position to rotate.</param>
+        /// <param name="targetAngle">The target angle.</param>
+        /// <param name="rotationYaw">The rotation yaw.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 VectorYawRotate(Vector3 targetOrigin, Vector3 positionToRotate, Vector3 targetAngle, float rotationYaw)
         {
@@ -181,6 +262,14 @@ namespace GameMath
             return positionToRotate;
         }
 
+        /// <summary>
+        /// Returns the position on screen
+        /// </summary>
+        /// <param name="viewMatrix">The view matrix.</param>
+        /// <param name="vec">The vector.</param>
+        /// <param name="screenX">The screen x.</param>
+        /// <param name="screenY">The screen y.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 WorldToScreen(Matrix4x4 viewMatrix, Vector3 vec, float screenX, float screenY)
         {
@@ -201,6 +290,37 @@ namespace GameMath
                     (viewMatrix.M21 * vec.X + viewMatrix.M22 * vec.Y + viewMatrix.M23 * vec.Z + viewMatrix.M24)
                     * inverseX)
                     * screenY + 0.5f);
+            }
+            return returnVector;
+        }
+
+        /// <summary>
+        /// Returns the position on screen
+        /// </summary>
+        /// <param name="viewMatrix">The view matrix.</param>
+        /// <param name="vec">The vec.</param>
+        /// <param name="screen">The screen.</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 WorldToScreen(Matrix4x4 viewMatrix, Vector3 vec, Vector2 screen)
+        {
+            Vector2 returnVector = new Vector2(0, 0);
+            float w = viewMatrix.M41 * vec.X + viewMatrix.M42 * vec.Y + viewMatrix.M43 * vec.Z + viewMatrix.M44;
+            if (w >= 0.01f)
+            {
+                float inverseX = 1f / w;
+                returnVector.X =
+                    (screen.X / 2f) +
+                    (0.5f * (
+                    (viewMatrix.M11 * vec.X + viewMatrix.M12 * vec.Y + viewMatrix.M13 * vec.Z + viewMatrix.M14)
+                    * inverseX)
+                    * screen.X + 0.5f);
+                returnVector.Y =
+                    (screen.Y / 2f) -
+                    (0.5f * (
+                    (viewMatrix.M21 * vec.X + viewMatrix.M22 * vec.Y + viewMatrix.M23 * vec.Z + viewMatrix.M24)
+                    * inverseX)
+                    * screen.Y + 0.5f);
             }
             return returnVector;
         }

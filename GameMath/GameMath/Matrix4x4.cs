@@ -3,9 +3,18 @@ using System.Runtime.InteropServices;
 
 namespace GameMath
 {
+    /// <summary>
+    /// Represents a 4x4 fields matrix
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct Matrix4x4
     {
+        /// <summary>
+        /// Gets the identity.
+        /// </summary>
+        /// <value>
+        /// The identity.
+        /// </value>
         public static Matrix4x4 Identity
         {
             get
@@ -14,6 +23,12 @@ namespace GameMath
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is identity.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is identity; otherwise, <c>false</c>.
+        /// </value>
         public bool IsIdentity
         {
             get
@@ -22,6 +37,12 @@ namespace GameMath
             }
         }
 
+        /// <summary>
+        /// Gets or sets the translation.
+        /// </summary>
+        /// <value>
+        /// The translation.
+        /// </value>
         public Vector3 Translation
         {
             get
@@ -36,38 +57,105 @@ namespace GameMath
             }
         }
 
+        /// <summary>
+        /// The M11
+        /// </summary>
         public float M11;
 
+        /// <summary>
+        /// The M12
+        /// </summary>
         public float M12;
 
+        /// <summary>
+        /// The M13
+        /// </summary>
         public float M13;
 
+        /// <summary>
+        /// The M14
+        /// </summary>
         public float M14;
 
+        /// <summary>
+        /// The M21
+        /// </summary>
         public float M21;
 
+        /// <summary>
+        /// The M22
+        /// </summary>
         public float M22;
 
+        /// <summary>
+        /// The M23
+        /// </summary>
         public float M23;
 
+        /// <summary>
+        /// The M24
+        /// </summary>
         public float M24;
 
+        /// <summary>
+        /// The M31
+        /// </summary>
         public float M31;
 
+        /// <summary>
+        /// The M32
+        /// </summary>
         public float M32;
 
+        /// <summary>
+        /// The M33
+        /// </summary>
         public float M33;
 
+        /// <summary>
+        /// The M34
+        /// </summary>
         public float M34;
 
+        /// <summary>
+        /// The M41
+        /// </summary>
         public float M41;
 
+        /// <summary>
+        /// The M42
+        /// </summary>
         public float M42;
 
+        /// <summary>
+        /// The M43
+        /// </summary>
         public float M43;
 
+        /// <summary>
+        /// The M44
+        /// </summary>
         public float M44;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Matrix4x4"/> struct.
+        /// </summary>
+        /// <param name="m11">The M11.</param>
+        /// <param name="m12">The M12.</param>
+        /// <param name="m13">The M13.</param>
+        /// <param name="m14">The M14.</param>
+        /// <param name="m21">The M21.</param>
+        /// <param name="m22">The M22.</param>
+        /// <param name="m23">The M23.</param>
+        /// <param name="m24">The M24.</param>
+        /// <param name="m31">The M31.</param>
+        /// <param name="m32">The M32.</param>
+        /// <param name="m33">The M33.</param>
+        /// <param name="m34">The M34.</param>
+        /// <param name="m41">The M41.</param>
+        /// <param name="m42">The M42.</param>
+        /// <param name="m43">The M43.</param>
+        /// <param name="m44">The M44.</param>
         public Matrix4x4(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
         {
             M11 = m11;
@@ -88,11 +176,24 @@ namespace GameMath
             M44 = m44;
         }
 
+        /// <summary>
+        /// Worlds to screen.
+        /// </summary>
+        /// <param name="vec">The vec.</param>
+        /// <param name="screenSize">Size of the screen.</param>
+        /// <returns></returns>
         public Vector2 WorldToScreen(Vector3 vec, Vector2 screenSize)
         {
             return WorldToScreen(vec, screenSize.X, screenSize.Y);
         }
 
+        /// <summary>
+        /// Worlds to screen.
+        /// </summary>
+        /// <param name="vec">The vec.</param>
+        /// <param name="sizeX">The size x.</param>
+        /// <param name="sizeY">The size y.</param>
+        /// <returns></returns>
         public Vector2 WorldToScreen(Vector3 vec, float sizeX, float sizeY)
         {
             Vector2 returnVector = new Vector2(0, 0);
@@ -116,31 +217,55 @@ namespace GameMath
             return returnVector;
         }
 
+        /// <summary>
+        /// Gets the left.
+        /// </summary>
+        /// <returns></returns>
         public Vector3 GetLeft()
         {
             return GetRight() * (-1f);
         }
 
+        /// <summary>
+        /// Gets the right.
+        /// </summary>
+        /// <returns></returns>
         public Vector3 GetRight()
         {
             return new Vector3(M11, M21, M31);
         }
 
+        /// <summary>
+        /// Gets up.
+        /// </summary>
+        /// <returns></returns>
         public Vector3 GetUp()
         {
             return new Vector3(M12, M22, M33);
         }
 
+        /// <summary>
+        /// Gets down.
+        /// </summary>
+        /// <returns></returns>
         public Vector3 GetDown()
         {
             return GetUp() * (-1f);
         }
 
+        /// <summary>
+        /// Gets the forward.
+        /// </summary>
+        /// <returns></returns>
         public Vector3 GetForward()
         {
             return GetBackward() * (-1f);
         }
 
+        /// <summary>
+        /// Gets the backward.
+        /// </summary>
+        /// <returns></returns>
         public Vector3 GetBackward()
         {
             return new Vector3(M13, M23, M33);
