@@ -8,8 +8,8 @@ namespace GameMath
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float AngleDifference(Vector3 pointOfView, Vector3 angle_1, Vector3 angle_2)
         {
-            float deltaX = (float)Math.Sin(MathEx.DegreesToRadians(angle_1.X - angle_2.X));
-            float deltaY = (float)Math.Sin(MathEx.DegreesToRadians(angle_1.Y - angle_2.Y));
+            float deltaX = (float)Math.Sin(MathF.DegreesToRadians(angle_1.X - angle_2.X));
+            float deltaY = (float)Math.Sin(MathF.DegreesToRadians(angle_1.Y - angle_2.Y));
 
             return (deltaX * deltaX + deltaY * deltaY) * pointOfView.Length();
         }
@@ -17,8 +17,8 @@ namespace GameMath
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float AngleDifference(float distance, Vector3 viewAngle, Vector3 targetAngle)
         {
-            double pitch = Math.Sin(MathEx.DegreesToRadians(viewAngle.X - targetAngle.X)) * distance;
-            double yaw = Math.Sin(MathEx.DegreesToRadians(viewAngle.Y - targetAngle.Y)) * distance;
+            double pitch = Math.Sin(MathF.DegreesToRadians(viewAngle.X - targetAngle.X)) * distance;
+            double yaw = Math.Sin(MathF.DegreesToRadians(viewAngle.Y - targetAngle.Y)) * distance;
 
             return (float)Math.Sqrt(pitch * pitch + yaw * yaw);
         }
@@ -38,8 +38,8 @@ namespace GameMath
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 AngleVector(Vector3 vec)
         {
-            float X = vec.X * MathEx.DEG_2_RAD;
-            float Y = vec.Y * MathEx.DEG_2_RAD;
+            float X = vec.X * MathF.DEG_2_RAD;
+            float Y = vec.Y * MathF.DEG_2_RAD;
 
             float sinYaw = (float)Math.Sin(Y);
             float cosYaw = (float)Math.Cos(Y);
@@ -58,8 +58,8 @@ namespace GameMath
 
             float hyp = (float)Math.Sqrt((delta.X * delta.X) + (delta.Y * delta.Y));
 
-            ret.X = MathEx.RadiansToDegrees((float)Math.Atan(delta.Z / hyp));
-            ret.Y = MathEx.RadiansToDegrees((float)Math.Atan(delta.Y / delta.X));
+            ret.X = MathF.RadiansToDegrees((float)Math.Atan(delta.Z / hyp));
+            ret.Y = MathF.RadiansToDegrees((float)Math.Atan(delta.Y / delta.X));
 
             if (delta.X >= 0.0f)
                 ret.Y += 180.0f;
@@ -70,8 +70,8 @@ namespace GameMath
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float GetFov(Vector3 viewAngle, Vector3 targetAngle, float distance)
         {
-            double deltaX = Math.Sin(MathEx.DegreesToRadians(Math.Abs(viewAngle.X - targetAngle.X)));
-            double deltaY = Math.Sin(MathEx.DegreesToRadians(Math.Abs(viewAngle.Y - targetAngle.Y)));
+            double deltaX = Math.Sin(MathF.DegreesToRadians(Math.Abs(viewAngle.X - targetAngle.X)));
+            double deltaY = Math.Sin(MathF.DegreesToRadians(Math.Abs(viewAngle.Y - targetAngle.Y)));
 
             return (float)Math.Sin(deltaX * deltaX + deltaY * deltaY) * distance;
         }
@@ -119,11 +119,11 @@ namespace GameMath
             }
             else
             {
-                yaw = MathEx.RadiansToDegrees((float)Math.Atan2(forward.Y, forward.X));
+                yaw = MathF.RadiansToDegrees((float)Math.Atan2(forward.Y, forward.X));
 
                 if (yaw < 0) yaw += 360.0f;
 
-                pitch = MathEx.RadiansToDegrees((float)Math.Atan2(-forward.Z, Math.Sqrt(forward.X * forward.X + forward.Y * forward.Y)));
+                pitch = MathF.RadiansToDegrees((float)Math.Atan2(-forward.Z, Math.Sqrt(forward.X * forward.X + forward.Y * forward.Y)));
 
                 if (pitch < 0) pitch += 360;
             }
@@ -148,7 +148,7 @@ namespace GameMath
 
             float radius = (float)Math.Sqrt(deltaTarget.X * deltaTarget.X + deltaTarget.Y * deltaTarget.Y);
 
-            float rotationYawRad = rotationYaw * MathEx.DEG_2_RAD;
+            float rotationYawRad = rotationYaw * MathF.DEG_2_RAD;
 
             deltaTarget.X = (float)Math.Sin(rotationYawRad) * radius;
             deltaTarget.Y = (float)Math.Cos(rotationYawRad) * radius;
@@ -164,7 +164,7 @@ namespace GameMath
 
             float rotationAngle = rotationYaw - targetAngle.Y;
 
-            float radianAngle = rotationAngle * MathEx.DEG_2_RAD;
+            float radianAngle = rotationAngle * MathF.DEG_2_RAD;
 
             float cosX = (float)(deltaX * (Math.Cos(radianAngle)));
             float cosY = (float)(deltaY * (Math.Cos(radianAngle)));

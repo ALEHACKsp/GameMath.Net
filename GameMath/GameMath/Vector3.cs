@@ -8,6 +8,7 @@ namespace GameMath
     public struct Vector3
     {
         public static readonly Vector3 Empty = new Vector3();
+        public static readonly Vector3 Zero = new Vector3();
         public static readonly Vector3 Invalid = new Vector3(float.NaN, float.NaN, float.NaN);
         public static readonly int Size = 12;
 
@@ -88,17 +89,12 @@ namespace GameMath
 
         public override bool Equals(object obj)
         {
-            if (obj is Vector3)
-            {
-                return (Vector3)obj == this;
-            }
-
-            return base.Equals(obj);
+            return obj is Vector3 && this.Equals((Vector3)obj);
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
 
         public override string ToString()
@@ -221,6 +217,11 @@ namespace GameMath
             return (float)Math.Sqrt(X * X + Y * Y + Z * Z);
         }
 
+        public float LengthSquared()
+        {
+            return X * X + Y * Y + Z * Z;
+        }
+
         public float DotProduct(Vector3 right)
         {
             return X * right.X + Y * right.Y + Z * right.Z;
@@ -234,6 +235,11 @@ namespace GameMath
                 Y = this.Z * right.X - this.X * right.Z,
                 Z = this.X * right.Y - this.Y * right.X
             };
+        }
+
+        public Vector3 Lerp(Vector3 right, float amount)
+        {
+            return new Vector3(X + (right.X - X) * amount, Y + (right.Y - Y) * amount, Z + (right.Z - Z) * amount);
         }
 
         public byte[] GetBytes()
@@ -279,7 +285,7 @@ namespace GameMath
         {
             if (!IsValid()) return false;
 
-            X = MathEx.Clamp(X, -89.0f, 89.0f);
+            X = MathF.Clamp(X, -89.0f, 89.0f);
 
             Z = 0.0f;
 
@@ -290,7 +296,7 @@ namespace GameMath
         {
             if (!IsValid()) return false;
 
-            X = MathEx.Clamp(X, min, max);
+            X = MathF.Clamp(X, min, max);
 
             Z = 0.0f;
 
@@ -301,7 +307,7 @@ namespace GameMath
         {
             if (!IsValid()) return false;
 
-            Y = MathEx.Normalize(Y, -180.0f, 180.0f, 360.0f);
+            Y = MathF.Normalize(Y, -180.0f, 180.0f, 360.0f);
 
             Z = 0.0f;
 
@@ -312,7 +318,7 @@ namespace GameMath
         {
             if (!IsValid()) return false;
 
-            Y = MathEx.Normalize(Y, min, max, norm);
+            Y = MathF.Normalize(Y, min, max, norm);
 
             Z = 0.0f;
 
@@ -323,8 +329,8 @@ namespace GameMath
         {
             if (!IsValid()) return false;
 
-            X = MathEx.Clamp(X, -89.0f, 89.0f);
-            Y = MathEx.Normalize(Y, -180.0f, 180.0f, 360.0f);
+            X = MathF.Clamp(X, -89.0f, 89.0f);
+            Y = MathF.Normalize(Y, -180.0f, 180.0f, 360.0f);
             Z = 0.0f;
 
             return IsValid();
@@ -535,6 +541,12 @@ namespace GameMath
         public Vector3 CrossProduct(Vector3 left, Vector3 right)
         {
             return left.CrossProduct(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 Lerp(Vector3 left, Vector3 right, float amount)
+        {
+            return left.Lerp(right, amount);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
