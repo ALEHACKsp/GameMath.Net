@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
+using System.Numerics;
+
 namespace GameMath
 {
     /// <summary>
@@ -51,11 +53,11 @@ namespace GameMath
         public static Vector3 AngleLinearSmooth(Vector3 source, Vector3 dest, float value)
         {
             dest -= source;
-            if (!dest.AngleClampAndNormalize()) return Vector3.Invalid;
+            if (!dest.AngleClampAndNormalize()) return Vector3.Zero;
             dest /= value;
-            if (!dest.AngleClampAndNormalize()) return Vector3.Invalid;
+            if (!dest.AngleClampAndNormalize()) return Vector3.Zero;
             dest += source;
-            if (!dest.AngleClampAndNormalize()) return Vector3.Invalid;
+            if (!dest.AngleClampAndNormalize()) return Vector3.Zero;
             return dest;
         }
 

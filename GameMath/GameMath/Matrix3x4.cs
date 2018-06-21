@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+using System.Numerics;
+
 namespace GameMath
 {
     /// <summary>

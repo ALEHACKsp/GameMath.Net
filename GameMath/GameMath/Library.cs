@@ -32,7 +32,7 @@ namespace GameMath
         {
             get
             {
-                return "GameMath.Net";
+                return "GameMath.Net.Numerics";
             }
         }
 
