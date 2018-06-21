@@ -5,6 +5,10 @@ This library provides extended mathematics especially useful when developing gam
 ### Nuget
 Use GameMath.Net only when you do not want to include System.Numerics.Vectors
 
+    Install-Package GameMath.Net
+
+    Install-Package GameMath.Net.Numerics
+
 ## Types
 - Vector2
 - Vector3
