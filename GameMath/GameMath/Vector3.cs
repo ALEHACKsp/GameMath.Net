@@ -1,50 +1,55 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace GameMath
 {
     /// <summary>
-    /// Represents a 3 dimensional vector
+    ///     Represents a 3 dimensional vector
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct Vector3
     {
         /// <summary>
-        /// The empty
+        ///     The empty
         /// </summary>
-        public static readonly Vector3 Empty = new Vector3();
+        public static readonly Vector3 Empty;
+
         /// <summary>
-        /// The zero
+        ///     The zero
         /// </summary>
-        public static readonly Vector3 Zero = new Vector3();
+        public static readonly Vector3 Zero;
+
         /// <summary>
-        /// The invalid
+        ///     The invalid
         /// </summary>
         public static readonly Vector3 Invalid = new Vector3(float.NaN, float.NaN, float.NaN);
+
         /// <summary>
-        /// The size
+        ///     The size
         /// </summary>
         public static readonly int Size = 12;
 
         /// <summary>
-        /// The x
+        ///     The x
         /// </summary>
         public float X;
+
         /// <summary>
-        /// The y
+        ///     The y
         /// </summary>
         public float Y;
+
         /// <summary>
-        /// The z
+        ///     The z
         /// </summary>
         public float Z;
 
         /// <summary>
-        /// Gets or sets the <see cref="System.Single"/> at the specified index.
+        ///     Gets or sets the <see cref="System.Single" /> at the specified index.
         /// </summary>
         /// <value>
-        /// The <see cref="System.Single"/>.
+        ///     The <see cref="System.Single" />.
         /// </value>
         /// <param name="index">The index.</param>
         /// <returns></returns>
@@ -54,22 +59,37 @@ namespace GameMath
             {
                 if (index < 0 || index > 2) return float.NaN;
 
-                if (index == 0) return X;
-                else if (index == 1) return Y;
-                else return Z;
+                switch (index)
+                {
+                    case 0:
+                        return X;
+                    case 1:
+                        return Y;
+                }
+
+                return Z;
             }
             set
             {
                 if (index < 0 || index > 2) return;
 
-                if (index == 0) X = value;
-                else if (index == 1) Y = value;
-                else Z = value;
+                switch (index)
+                {
+                    case 0:
+                        X = value;
+                        break;
+                    case 1:
+                        Y = value;
+                        break;
+                    default:
+                        Z = value;
+                        break;
+                }
             }
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector3"/> struct.
+        ///     Initializes a new instance of the <see cref="Vector3" /> struct.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -82,33 +102,33 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector3"/> struct.
+        ///     Initializes a new instance of the <see cref="Vector3" /> struct.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="z">The z.</param>
         public Vector3(double x, double y, double z)
         {
-            X = (float)x;
-            Y = (float)y;
-            Z = (float)z;
+            X = (float) x;
+            Y = (float) y;
+            Z = (float) z;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector3"/> struct.
+        ///     Initializes a new instance of the <see cref="Vector3" /> struct.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="z">The z.</param>
         public Vector3(int x, int y, int z)
         {
-            X = (float)x;
-            Y = (float)y;
-            Z = (float)z;
+            X = x;
+            Y = y;
+            Z = z;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector3"/> struct.
+        ///     Initializes a new instance of the <see cref="Vector3" /> struct.
         /// </summary>
         /// <param name="array">The array.</param>
         public Vector3(float[] array)
@@ -127,7 +147,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector3"/> struct.
+        ///     Initializes a new instance of the <see cref="Vector3" /> struct.
         /// </summary>
         /// <param name="array">The array.</param>
         public Vector3(byte[] array)
@@ -146,22 +166,22 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        ///     Determines whether the specified <see cref="System.Object" />, is equal to this instance.
         /// </summary>
         /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
         public override bool Equals(object obj)
         {
-            return obj is Vector3 && this.Equals((Vector3)obj);
+            return obj is Vector3 && Equals((Vector3) obj);
         }
 
         /// <summary>
-        /// Returns a hash code for this instance.
+        ///     Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        ///     A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
         public override int GetHashCode()
         {
@@ -169,10 +189,10 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        ///     Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {
@@ -180,7 +200,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Adds the specified vec.
+        ///     Adds the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Add(Vector3 vec)
@@ -191,7 +211,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Adds the specified vec.
+        ///     Adds the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Add(float vec)
@@ -202,7 +222,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Adds the specified vec.
+        ///     Adds the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Add(int vec)
@@ -213,7 +233,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Subtracts the specified vec.
+        ///     Subtracts the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Subtract(Vector3 vec)
@@ -224,7 +244,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Subtracts the specified vec.
+        ///     Subtracts the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Subtract(float vec)
@@ -235,7 +255,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Subtracts the specified vec.
+        ///     Subtracts the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Subtract(int vec)
@@ -246,7 +266,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Multiplies the specified vec.
+        ///     Multiplies the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Multiply(Vector3 vec)
@@ -257,7 +277,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Multiplies the specified vec.
+        ///     Multiplies the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Multiply(float vec)
@@ -268,7 +288,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Multiplies the specified vec.
+        ///     Multiplies the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Multiply(int vec)
@@ -279,7 +299,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Divides the specified vec.
+        ///     Divides the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Divide(Vector3 vec)
@@ -294,7 +314,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Divides the specified vec.
+        ///     Divides the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Divide(float vec)
@@ -307,12 +327,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Divides the specified vec.
+        ///     Divides the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Divide(int vec)
         {
-            float tmp = (float)vec;
+            float tmp = vec;
             if (tmp == 0.0f) tmp = float.Epsilon;
 
             X /= tmp;
@@ -321,7 +341,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Clones this instance.
+        ///     Clones this instance.
         /// </summary>
         /// <returns></returns>
         public Vector3 Clone()
@@ -330,7 +350,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Clears this instance.
+        ///     Clears this instance.
         /// </summary>
         public void Clear()
         {
@@ -340,7 +360,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Distances to.
+        ///     Distances to.
         /// </summary>
         /// <param name="vec">The vec.</param>
         /// <returns></returns>
@@ -350,16 +370,16 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Lengthes this instance.
+        ///     Lengthes this instance.
         /// </summary>
         /// <returns></returns>
         public float Length()
         {
-            return (float)Math.Sqrt(X * X + Y * Y + Z * Z);
+            return (float) Math.Sqrt(X * X + Y * Y + Z * Z);
         }
 
         /// <summary>
-        /// Lengthes the squared.
+        ///     Lengthes the squared.
         /// </summary>
         /// <returns></returns>
         public float LengthSquared()
@@ -368,7 +388,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Dots the product.
+        ///     Dots the product.
         /// </summary>
         /// <param name="right">The right.</param>
         /// <returns></returns>
@@ -378,7 +398,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Crosses the product.
+        ///     Crosses the product.
         /// </summary>
         /// <param name="right">The right.</param>
         /// <returns></returns>
@@ -386,14 +406,14 @@ namespace GameMath
         {
             return new Vector3
             {
-                X = this.Y * right.Z - this.Z * right.Y,
-                Y = this.Z * right.X - this.X * right.Z,
-                Z = this.X * right.Y - this.Y * right.X
+                X = Y * right.Z - Z * right.Y,
+                Y = Z * right.X - X * right.Z,
+                Z = X * right.Y - Y * right.X
             };
         }
 
         /// <summary>
-        /// Lerps the specified right.
+        ///     Lerps the specified right.
         /// </summary>
         /// <param name="right">The right.</param>
         /// <param name="amount">The amount.</param>
@@ -404,7 +424,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Gets the bytes.
+        ///     Gets the bytes.
         /// </summary>
         /// <returns></returns>
         public byte[] GetBytes()
@@ -417,10 +437,10 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Determines whether this instance is empty.
+        ///     Determines whether this instance is empty.
         /// </summary>
         /// <returns>
-        ///   <c>true</c> if this instance is empty; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is empty; otherwise, <c>false</c>.
         /// </returns>
         public bool IsEmpty()
         {
@@ -428,21 +448,20 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Reals the is empty.
+        ///     Reals the is empty.
         /// </summary>
         /// <returns></returns>
         public bool RealIsEmpty()
         {
-            return (X < float.Epsilon && X > (-float.Epsilon))
-                && (Y < float.Epsilon && Y > (-float.Epsilon))
-                && (Z < float.Epsilon && Z > (-float.Epsilon));
+            return X < float.Epsilon && X > -float.Epsilon && Y < float.Epsilon && Y > -float.Epsilon &&
+                   Z < float.Epsilon && Z > -float.Epsilon;
         }
 
         /// <summary>
-        /// Determines whether [is na n].
+        ///     Determines whether [is na n].
         /// </summary>
         /// <returns>
-        ///   <c>true</c> if [is na n]; otherwise, <c>false</c>.
+        ///     <c>true</c> if [is na n]; otherwise, <c>false</c>.
         /// </returns>
         public bool IsNaN()
         {
@@ -450,10 +469,10 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Determines whether this instance is infinity.
+        ///     Determines whether this instance is infinity.
         /// </summary>
         /// <returns>
-        ///   <c>true</c> if this instance is infinity; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is infinity; otherwise, <c>false</c>.
         /// </returns>
         public bool IsInfinity()
         {
@@ -461,21 +480,20 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Returns true if ... is valid.
+        ///     Returns true if ... is valid.
         /// </summary>
         /// <returns>
-        ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is valid; otherwise, <c>false</c>.
         /// </returns>
         public bool IsValid()
         {
             if (IsNaN()) return false;
-            if (IsInfinity()) return false;
 
-            return true;
+            return !IsInfinity();
         }
 
         /// <summary>
-        /// Angles the clamp.
+        ///     Angles the clamp.
         /// </summary>
         /// <returns></returns>
         public bool AngleClamp()
@@ -490,7 +508,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Angles the clamp.
+        ///     Angles the clamp.
         /// </summary>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
@@ -507,7 +525,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Angles the normalize.
+        ///     Angles the normalize.
         /// </summary>
         /// <returns></returns>
         public bool AngleNormalize()
@@ -522,7 +540,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Angles the normalize.
+        ///     Angles the normalize.
         /// </summary>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
@@ -540,7 +558,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Angles the clamp and normalize.
+        ///     Angles the clamp and normalize.
         /// </summary>
         /// <returns></returns>
         public bool AngleClampAndNormalize()
@@ -555,7 +573,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Vectors the normalize.
+        ///     Vectors the normalize.
         /// </summary>
         /// <returns></returns>
         public bool VectorNormalize()
@@ -564,7 +582,7 @@ namespace GameMath
 
             float length = Length();
 
-            if (length == 0) return true;
+            if (length == 0.0f) return true;
 
             X /= length;
             Y /= length;
@@ -574,12 +592,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator +.
+        ///     Implements the operator +.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector3 operator +(Vector3 left, Vector3 right)
         {
@@ -587,12 +605,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator +.
+        ///     Implements the operator +.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector3 operator +(Vector3 left, float right)
         {
@@ -600,12 +618,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator +.
+        ///     Implements the operator +.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector3 operator +(Vector3 left, int right)
         {
@@ -613,12 +631,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator -.
+        ///     Implements the operator -.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector3 operator -(Vector3 left, Vector3 right)
         {
@@ -626,12 +644,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator -.
+        ///     Implements the operator -.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector3 operator -(Vector3 left, float right)
         {
@@ -639,12 +657,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator -.
+        ///     Implements the operator -.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector3 operator -(Vector3 left, int right)
         {
@@ -652,12 +670,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator *.
+        ///     Implements the operator *.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector3 operator *(Vector3 left, Vector3 right)
         {
@@ -665,12 +683,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator *.
+        ///     Implements the operator *.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector3 operator *(Vector3 left, float right)
         {
@@ -678,12 +696,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator *.
+        ///     Implements the operator *.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector3 operator *(Vector3 left, int right)
         {
@@ -691,12 +709,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator /.
+        ///     Implements the operator /.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector3 operator /(Vector3 left, Vector3 right)
         {
@@ -704,12 +722,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator /.
+        ///     Implements the operator /.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector3 operator /(Vector3 left, float right)
         {
@@ -717,12 +735,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator /.
+        ///     Implements the operator /.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector3 operator /(Vector3 left, int right)
         {
@@ -730,192 +748,192 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator ==.
+        ///     Implements the operator ==.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator ==(Vector3 left, Vector3 right)
         {
             return left.X == right.X
-                && left.Y == right.Y
-                && left.Z == right.Z;
+                   && left.Y == right.Y
+                   && left.Z == right.Z;
         }
 
         /// <summary>
-        /// Implements the operator ==.
+        ///     Implements the operator ==.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator ==(Vector3 left, float right)
         {
             return left.X == right
-                && left.Y == right
-                && left.Z == right;
+                   && left.Y == right
+                   && left.Z == right;
         }
 
         /// <summary>
-        /// Implements the operator ==.
+        ///     Implements the operator ==.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator ==(Vector3 left, int right)
         {
             return left.X == right
-                && left.Y == right
-                && left.Z == right;
+                   && left.Y == right
+                   && left.Z == right;
         }
 
         /// <summary>
-        /// Implements the operator !=.
+        ///     Implements the operator !=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator !=(Vector3 left, Vector3 right)
         {
             return left.X != right.X
-                || left.Y != right.Y
-                || left.Z != right.Z;
+                   || left.Y != right.Y
+                   || left.Z != right.Z;
         }
 
         /// <summary>
-        /// Implements the operator !=.
+        ///     Implements the operator !=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator !=(Vector3 left, float right)
         {
             return left.X != right
-                || left.Y != right
-                || left.Z != right;
+                   || left.Y != right
+                   || left.Z != right;
         }
 
         /// <summary>
-        /// Implements the operator !=.
+        ///     Implements the operator !=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator !=(Vector3 left, int right)
         {
             return left.X != right
-                || left.Y != right
-                || left.Z != right;
+                   || left.Y != right
+                   || left.Z != right;
         }
 
         /// <summary>
-        /// Implements the operator &lt;.
+        ///     Implements the operator &lt;.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator <(Vector3 left, Vector3 right)
         {
             return left.X < right.X
-                && left.Y < right.Y
-                && left.Z < right.Z;
+                   && left.Y < right.Y
+                   && left.Z < right.Z;
         }
 
         /// <summary>
-        /// Implements the operator &lt;.
+        ///     Implements the operator &lt;.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator <(Vector3 left, float right)
         {
             return left.X < right
-                && left.Y < right
-                && left.Z < right;
+                   && left.Y < right
+                   && left.Z < right;
         }
 
         /// <summary>
-        /// Implements the operator &lt;.
+        ///     Implements the operator &lt;.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator <(Vector3 left, int right)
         {
             return left.X < right
-                && left.Y < right
-                && left.Z < right;
+                   && left.Y < right
+                   && left.Z < right;
         }
 
         /// <summary>
-        /// Implements the operator &gt;.
+        ///     Implements the operator &gt;.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator >(Vector3 left, Vector3 right)
         {
             return left.X > right.X
-                && left.Y > right.Y
-                && left.Z > right.Z;
+                   && left.Y > right.Y
+                   && left.Z > right.Z;
         }
 
         /// <summary>
-        /// Implements the operator &gt;.
+        ///     Implements the operator &gt;.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator >(Vector3 left, float right)
         {
             return left.X > right
-                && left.Y > right
-                && left.Z > right;
+                   && left.Y > right
+                   && left.Z > right;
         }
 
         /// <summary>
-        /// Implements the operator &gt;.
+        ///     Implements the operator &gt;.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator >(Vector3 left, int right)
         {
             return left.X > right
-                && left.Y > right
-                && left.Z > right;
+                   && left.Y > right
+                   && left.Z > right;
         }
 
         /// <summary>
-        /// Implements the operator &lt;=.
+        ///     Implements the operator &lt;=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator <=(Vector3 left, Vector3 right)
         {
@@ -923,12 +941,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &lt;=.
+        ///     Implements the operator &lt;=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator <=(Vector3 left, float right)
         {
@@ -936,12 +954,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &lt;=.
+        ///     Implements the operator &lt;=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator <=(Vector3 left, int right)
         {
@@ -949,12 +967,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &gt;=.
+        ///     Implements the operator &gt;=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator >=(Vector3 left, Vector3 right)
         {
@@ -962,12 +980,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &gt;=.
+        ///     Implements the operator &gt;=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator >=(Vector3 left, float right)
         {
@@ -975,12 +993,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &gt;=.
+        ///     Implements the operator &gt;=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator >=(Vector3 left, int right)
         {
@@ -988,7 +1006,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Distances the specified left.
+        ///     Distances the specified left.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -1000,7 +1018,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Dots the product.
+        ///     Dots the product.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -1012,7 +1030,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Crosses the product.
+        ///     Crosses the product.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -1024,7 +1042,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Lerps the specified left.
+        ///     Lerps the specified left.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -1037,7 +1055,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Angles the clamp.
+        ///     Angles the clamp.
         /// </summary>
         /// <param name="vec">The vec.</param>
         /// <returns></returns>
@@ -1050,7 +1068,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Angles the clamp.
+        ///     Angles the clamp.
         /// </summary>
         /// <param name="vec">The vec.</param>
         /// <param name="min">The minimum.</param>
@@ -1065,7 +1083,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Angles the normalize.
+        ///     Angles the normalize.
         /// </summary>
         /// <param name="vec">The vec.</param>
         /// <returns></returns>
@@ -1078,7 +1096,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Angles the normalize.
+        ///     Angles the normalize.
         /// </summary>
         /// <param name="vec">The vec.</param>
         /// <param name="min">The minimum.</param>

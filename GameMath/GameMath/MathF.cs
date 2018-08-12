@@ -4,28 +4,29 @@ using System.Runtime.CompilerServices;
 namespace GameMath
 {
     /// <summary>
-    /// Provides methods for float math
+    ///     Provides methods for float math
     /// </summary>
     public static class MathF
     {
-        private static Random rng = new Random();
+        private static readonly Random RandomNumberGenerator = new Random();
 
         /// <summary>
-        /// PI
+        ///     PI
         /// </summary>
-        public static readonly float PI = 3.14159274f;
+        public static readonly float Pi = 3.14159274f;
 
         /// <summary>
-        /// DEG_2_RAD
+        ///     DEG_2_RAD
         /// </summary>
-        public static readonly float DEG_2_RAD = (float)(Math.PI / 180f);
-        /// <summary>
-        /// RAD_2_DEG
-        /// </summary>
-        public static readonly float RAD_2_DEG = (float)(180.0f / Math.PI);
+        public static readonly float Deg2Rad = (float) (Math.PI / 180f);
 
         /// <summary>
-        /// Returns the absolute value
+        ///     RAD_2_DEG
+        /// </summary>
+        public static readonly float Rad2Deg = (float) (180.0f / Math.PI);
+
+        /// <summary>
+        ///     Returns the absolute value
         /// </summary>
         /// <param name="x">value</param>
         /// <returns></returns>
@@ -36,41 +37,37 @@ namespace GameMath
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Acos(float x)
         {
-            return (float)Math.Acos((double)x);
+            return (float) Math.Acos(x);
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Cos(float x)
         {
-            return (float)Math.Cos((double)x);
+            return (float) Math.Cos(x);
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float IEEERemainder(float x, float y)
+        public static float IeeeRemainder(float x, float y)
         {
-            return (float)Math.IEEERemainder((double)x, (double)y);
+            return (float) Math.IEEERemainder(x, y);
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -78,44 +75,41 @@ namespace GameMath
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Pow(float x, float y)
         {
-            return (float)Math.Pow((double)x, (double)y);
+            return (float) Math.Pow(x, y);
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Sin(float x)
         {
-            return (float)Math.Sin((double)x);
+            return (float) Math.Sin(x);
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Sqrt(float x)
         {
-            return (float)Math.Sqrt((double)x);
+            return (float) Math.Sqrt(x);
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Tan(float x)
         {
-            return (float)Math.Tan((double)x);
+            return (float) Math.Tan(x);
         }
 
         /// <summary>
-        /// Clamps the specified value.
+        ///     Clamps the specified value.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="min">The minimum.</param>
@@ -125,20 +119,23 @@ namespace GameMath
         public static float Clamp(float value, float min, float max)
         {
             if (value < min) return min;
-            if (value > max) return max;
-            return value;
+
+            return value > max ? max : value;
         }
 
         /// <summary>
-        /// Degreeses to radians.
+        ///     Degreeses to radians.
         /// </summary>
         /// <param name="deg">The deg.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float DegreesToRadians(float deg) { return (deg * DEG_2_RAD); }
+        public static float DegreesToRadians(float deg)
+        {
+            return deg * Deg2Rad;
+        }
 
         /// <summary>
-        /// Normalizes the specified value.
+        ///     Normalizes the specified value.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="min">The minimum.</param>
@@ -158,7 +155,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Normalizes the specified value.
+        ///     Normalizes the specified value.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="min">The minimum.</param>
@@ -177,15 +174,18 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Radianses to degrees.
+        ///     Radianses to degrees.
         /// </summary>
         /// <param name="rad">The RAD.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float RadiansToDegrees(float rad) { return (rad * RAD_2_DEG); }
+        public static float RadiansToDegrees(float rad)
+        {
+            return rad * Rad2Deg;
+        }
 
         /// <summary>
-        /// Random float.
+        ///     Random float.
         /// </summary>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
@@ -193,11 +193,11 @@ namespace GameMath
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float RandomFloat(float min, float max)
         {
-            return ((float)rng.NextDouble() * (max - min)) + min;
+            return (float) RandomNumberGenerator.NextDouble() * (max - min) + min;
         }
 
         /// <summary>
-        /// Random int.
+        ///     Random int.
         /// </summary>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
@@ -205,7 +205,7 @@ namespace GameMath
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int RandomInt(int min, int max)
         {
-            return rng.Next(min, max);
+            return RandomNumberGenerator.Next(min, max);
         }
     }
 }

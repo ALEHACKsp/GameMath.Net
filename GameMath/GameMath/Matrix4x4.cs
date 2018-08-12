@@ -1,54 +1,42 @@
-﻿using System;
+﻿using System.Globalization;
 using System.Runtime.InteropServices;
 
 namespace GameMath
 {
     /// <summary>
-    /// Represents a 4x4 fields matrix
+    ///     Represents a 4x4 fields matrix
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct Matrix4x4
     {
         /// <summary>
-        /// Gets the identity.
+        ///     Gets the identity.
         /// </summary>
         /// <value>
-        /// The identity.
+        ///     The identity.
         /// </value>
-        public static Matrix4x4 Identity
-        {
-            get
-            {
-                return new Matrix4x4(1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f);
-            }
-        }
+        public static Matrix4x4 Identity =>
+            new Matrix4x4(1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f);
 
         /// <summary>
-        /// Gets a value indicating whether this instance is identity.
+        ///     Gets a value indicating whether this instance is identity.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is identity; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is identity; otherwise, <c>false</c>.
         /// </value>
-        public bool IsIdentity
-        {
-            get
-            {
-                return M11 == 1f && M22 == 1f && M33 == 1f && M44 == 1f && M12 == 0f && M13 == 0f && M14 == 0f && M21 == 0f && M23 == 0f && M24 == 0f && M31 == 0f && M32 == 0f && M34 == 0f && M41 == 0f && M42 == 0f && M43 == 0f;
-            }
-        }
+        public bool IsIdentity => M11 == 1f && M22 == 1f && M33 == 1f && M44 == 1f && M12 == 0f && M13 == 0f &&
+                                  M14 == 0f && M21 == 0f && M23 == 0f && M24 == 0f && M31 == 0f && M32 == 0f &&
+                                  M34 == 0f && M41 == 0f && M42 == 0f && M43 == 0f;
 
         /// <summary>
-        /// Gets or sets the translation.
+        ///     Gets or sets the translation.
         /// </summary>
         /// <value>
-        /// The translation.
+        ///     The translation.
         /// </value>
         public Vector3 Translation
         {
-            get
-            {
-                return new Vector3(M41, M42, M43);
-            }
+            get => new Vector3(M41, M42, M43);
             set
             {
                 M41 = value.X;
@@ -58,87 +46,87 @@ namespace GameMath
         }
 
         /// <summary>
-        /// The M11
+        ///     The M11
         /// </summary>
         public float M11;
 
         /// <summary>
-        /// The M12
+        ///     The M12
         /// </summary>
         public float M12;
 
         /// <summary>
-        /// The M13
+        ///     The M13
         /// </summary>
         public float M13;
 
         /// <summary>
-        /// The M14
+        ///     The M14
         /// </summary>
         public float M14;
 
         /// <summary>
-        /// The M21
+        ///     The M21
         /// </summary>
         public float M21;
 
         /// <summary>
-        /// The M22
+        ///     The M22
         /// </summary>
         public float M22;
 
         /// <summary>
-        /// The M23
+        ///     The M23
         /// </summary>
         public float M23;
 
         /// <summary>
-        /// The M24
+        ///     The M24
         /// </summary>
         public float M24;
 
         /// <summary>
-        /// The M31
+        ///     The M31
         /// </summary>
         public float M31;
 
         /// <summary>
-        /// The M32
+        ///     The M32
         /// </summary>
         public float M32;
 
         /// <summary>
-        /// The M33
+        ///     The M33
         /// </summary>
         public float M33;
 
         /// <summary>
-        /// The M34
+        ///     The M34
         /// </summary>
         public float M34;
 
         /// <summary>
-        /// The M41
+        ///     The M41
         /// </summary>
         public float M41;
 
         /// <summary>
-        /// The M42
+        ///     The M42
         /// </summary>
         public float M42;
 
         /// <summary>
-        /// The M43
+        ///     The M43
         /// </summary>
         public float M43;
 
         /// <summary>
-        /// The M44
+        ///     The M44
         /// </summary>
         public float M44;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Matrix4x4"/> struct.
+        ///     Initializes a new instance of the <see cref="Matrix4x4" /> struct.
         /// </summary>
         /// <param name="m11">The M11.</param>
         /// <param name="m12">The M12.</param>
@@ -156,7 +144,8 @@ namespace GameMath
         /// <param name="m42">The M42.</param>
         /// <param name="m43">The M43.</param>
         /// <param name="m44">The M44.</param>
-        public Matrix4x4(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
+        public Matrix4x4(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24,
+            float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
         {
             M11 = m11;
             M12 = m12;
@@ -177,7 +166,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Worlds to screen.
+        ///     Worlds to screen.
         /// </summary>
         /// <param name="vec">The vec.</param>
         /// <param name="screenSize">Size of the screen.</param>
@@ -188,7 +177,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Worlds to screen.
+        ///     Worlds to screen.
         /// </summary>
         /// <param name="vec">The vec.</param>
         /// <param name="sizeX">The size x.</param>
@@ -196,38 +185,41 @@ namespace GameMath
         /// <returns></returns>
         public Vector2 WorldToScreen(Vector3 vec, float sizeX, float sizeY)
         {
-            Vector2 returnVector = new Vector2(0, 0);
+            var returnVector = new Vector2(0, 0);
             float w = M41 * vec.X + M42 * vec.Y + M43 * vec.Z + M44;
-            if (w >= 0.01f)
-            {
-                float inverseX = 1f / w;
-                returnVector.X =
-                    (sizeX / 2f) +
-                    (0.5f * (
-                    (M11 * vec.X + M12 * vec.Y + M13 * vec.Z + M14)
-                    * inverseX)
-                    * sizeX + 0.5f);
-                returnVector.Y =
-                    (sizeY / 2f) -
-                    (0.5f * (
-                    (M21 * vec.X + M22 * vec.Y + M23 * vec.Z + M24)
-                    * inverseX)
-                    * sizeY + 0.5f);
-            }
+
+            if (!(w >= 0.01f)) return returnVector;
+
+            float inverseX = 1f / w;
+
+            returnVector.X =
+                sizeX / 2f +
+                (0.5f * (
+                     (M11 * vec.X + M12 * vec.Y + M13 * vec.Z + M14)
+                     * inverseX)
+                 * sizeX + 0.5f);
+
+            returnVector.Y =
+                sizeY / 2f -
+                (0.5f * (
+                     (M21 * vec.X + M22 * vec.Y + M23 * vec.Z + M24)
+                     * inverseX)
+                 * sizeY + 0.5f);
+
             return returnVector;
         }
 
         /// <summary>
-        /// Gets the left.
+        ///     Gets the left.
         /// </summary>
         /// <returns></returns>
         public Vector3 GetLeft()
         {
-            return GetRight() * (-1f);
+            return GetRight() * -1f;
         }
 
         /// <summary>
-        /// Gets the right.
+        ///     Gets the right.
         /// </summary>
         /// <returns></returns>
         public Vector3 GetRight()
@@ -236,7 +228,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Gets up.
+        ///     Gets up.
         /// </summary>
         /// <returns></returns>
         public Vector3 GetUp()
@@ -245,25 +237,25 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Gets down.
+        ///     Gets down.
         /// </summary>
         /// <returns></returns>
         public Vector3 GetDown()
         {
-            return GetUp() * (-1f);
+            return GetUp() * -1f;
         }
 
         /// <summary>
-        /// Gets the forward.
+        ///     Gets the forward.
         /// </summary>
         /// <returns></returns>
         public Vector3 GetForward()
         {
-            return GetBackward() * (-1f);
+            return GetBackward() * -1f;
         }
 
         /// <summary>
-        /// Gets the backward.
+        ///     Gets the backward.
         /// </summary>
         /// <returns></returns>
         public Vector3 GetBackward()
@@ -274,10 +266,13 @@ namespace GameMath
         /// <summary>Adds each element in one matrix with its corresponding element in a second matrix.</summary>
         /// <param name="value1">The first matrix.</param>
         /// <param name="value2">The second matrix.</param>
-        /// <returns>The matrix that contains the summed values of <paramref name="value1">value1</paramref> and <paramref name="value2">value2</paramref>.</returns>
+        /// <returns>
+        ///     The matrix that contains the summed values of <paramref name="value1">value1</paramref> and
+        ///     <paramref name="value2">value2</paramref>.
+        /// </returns>
         public static Matrix4x4 Add(Matrix4x4 value1, Matrix4x4 value2)
         {
-            Matrix4x4 result = new Matrix4x4
+            var result = new Matrix4x4
             {
                 M11 = value1.M11 + value2.M11,
                 M12 = value1.M12 + value2.M12,
@@ -302,10 +297,14 @@ namespace GameMath
         /// <summary>Subtracts each element in a second matrix from its corresponding element in a first matrix.</summary>
         /// <param name="value1">The first matrix.</param>
         /// <param name="value2">The second matrix.</param>
-        /// <returns>The matrix containing the values that result from subtracting each element in <paramref name="value2">value2</paramref> from its corresponding element in <paramref name="value1">value1</paramref>.</returns>
+        /// <returns>
+        ///     The matrix containing the values that result from subtracting each element in
+        ///     <paramref name="value2">value2</paramref> from its corresponding element in
+        ///     <paramref name="value1">value1</paramref>.
+        /// </returns>
         public static Matrix4x4 Subtract(Matrix4x4 value1, Matrix4x4 value2)
         {
-            Matrix4x4 result = new Matrix4x4
+            var result = new Matrix4x4
             {
                 M11 = value1.M11 - value2.M11,
                 M12 = value1.M12 - value2.M12,
@@ -332,7 +331,7 @@ namespace GameMath
         /// <returns>The translation matrix.</returns>
         public static Matrix4x4 CreateTranslation(Vector3 position)
         {
-            Matrix4x4 result = new Matrix4x4
+            var result = new Matrix4x4
             {
                 M11 = 1f,
                 M12 = 0f,
@@ -389,7 +388,8 @@ namespace GameMath
             float num11 = m * num7 + m2 * num8 + m3 * num9 + m4 * num10;
             if (MathF.Abs(num11) < 1.401298E-45f)
             {
-                result = new Matrix4x4(float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN);
+                result = new Matrix4x4(float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN,
+                    float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN);
                 return false;
             }
             float num12 = 1f / num11;
@@ -424,14 +424,17 @@ namespace GameMath
             return true;
         }
 
-        /// <summary>Performs a linear interpolation from one matrix to a second matrix based on a value that specifies the weighting of the second matrix.</summary>
+        /// <summary>
+        ///     Performs a linear interpolation from one matrix to a second matrix based on a value that specifies the
+        ///     weighting of the second matrix.
+        /// </summary>
         /// <param name="matrix1">The first matrix.</param>
         /// <param name="matrix2">The second matrix.</param>
         /// <param name="amount">The relative weighting of matrix2.</param>
         /// <returns>The interpolated matrix.</returns>
         public static Matrix4x4 Lerp(Matrix4x4 matrix1, Matrix4x4 matrix2, float amount)
         {
-            Matrix4x4 result = new Matrix4x4
+            var result = new Matrix4x4
             {
                 M11 = matrix1.M11 + (matrix2.M11 - matrix1.M11) * amount,
                 M12 = matrix1.M12 + (matrix2.M12 - matrix1.M12) * amount,
@@ -459,24 +462,40 @@ namespace GameMath
         /// <returns>The product matrix.</returns>
         public static Matrix4x4 Multiply(Matrix4x4 value1, Matrix4x4 value2)
         {
-            Matrix4x4 result = new Matrix4x4
+            var result = new Matrix4x4
             {
-                M11 = value1.M11 * value2.M11 + value1.M12 * value2.M21 + value1.M13 * value2.M31 + value1.M14 * value2.M41,
-                M12 = value1.M11 * value2.M12 + value1.M12 * value2.M22 + value1.M13 * value2.M32 + value1.M14 * value2.M42,
-                M13 = value1.M11 * value2.M13 + value1.M12 * value2.M23 + value1.M13 * value2.M33 + value1.M14 * value2.M43,
-                M14 = value1.M11 * value2.M14 + value1.M12 * value2.M24 + value1.M13 * value2.M34 + value1.M14 * value2.M44,
-                M21 = value1.M21 * value2.M11 + value1.M22 * value2.M21 + value1.M23 * value2.M31 + value1.M24 * value2.M41,
-                M22 = value1.M21 * value2.M12 + value1.M22 * value2.M22 + value1.M23 * value2.M32 + value1.M24 * value2.M42,
-                M23 = value1.M21 * value2.M13 + value1.M22 * value2.M23 + value1.M23 * value2.M33 + value1.M24 * value2.M43,
-                M24 = value1.M21 * value2.M14 + value1.M22 * value2.M24 + value1.M23 * value2.M34 + value1.M24 * value2.M44,
-                M31 = value1.M31 * value2.M11 + value1.M32 * value2.M21 + value1.M33 * value2.M31 + value1.M34 * value2.M41,
-                M32 = value1.M31 * value2.M12 + value1.M32 * value2.M22 + value1.M33 * value2.M32 + value1.M34 * value2.M42,
-                M33 = value1.M31 * value2.M13 + value1.M32 * value2.M23 + value1.M33 * value2.M33 + value1.M34 * value2.M43,
-                M34 = value1.M31 * value2.M14 + value1.M32 * value2.M24 + value1.M33 * value2.M34 + value1.M34 * value2.M44,
-                M41 = value1.M41 * value2.M11 + value1.M42 * value2.M21 + value1.M43 * value2.M31 + value1.M44 * value2.M41,
-                M42 = value1.M41 * value2.M12 + value1.M42 * value2.M22 + value1.M43 * value2.M32 + value1.M44 * value2.M42,
-                M43 = value1.M41 * value2.M13 + value1.M42 * value2.M23 + value1.M43 * value2.M33 + value1.M44 * value2.M43,
-                M44 = value1.M41 * value2.M14 + value1.M42 * value2.M24 + value1.M43 * value2.M34 + value1.M44 * value2.M44
+                M11 = value1.M11 * value2.M11 + value1.M12 * value2.M21 + value1.M13 * value2.M31 +
+                      value1.M14 * value2.M41,
+                M12 = value1.M11 * value2.M12 + value1.M12 * value2.M22 + value1.M13 * value2.M32 +
+                      value1.M14 * value2.M42,
+                M13 = value1.M11 * value2.M13 + value1.M12 * value2.M23 + value1.M13 * value2.M33 +
+                      value1.M14 * value2.M43,
+                M14 = value1.M11 * value2.M14 + value1.M12 * value2.M24 + value1.M13 * value2.M34 +
+                      value1.M14 * value2.M44,
+                M21 = value1.M21 * value2.M11 + value1.M22 * value2.M21 + value1.M23 * value2.M31 +
+                      value1.M24 * value2.M41,
+                M22 = value1.M21 * value2.M12 + value1.M22 * value2.M22 + value1.M23 * value2.M32 +
+                      value1.M24 * value2.M42,
+                M23 = value1.M21 * value2.M13 + value1.M22 * value2.M23 + value1.M23 * value2.M33 +
+                      value1.M24 * value2.M43,
+                M24 = value1.M21 * value2.M14 + value1.M22 * value2.M24 + value1.M23 * value2.M34 +
+                      value1.M24 * value2.M44,
+                M31 = value1.M31 * value2.M11 + value1.M32 * value2.M21 + value1.M33 * value2.M31 +
+                      value1.M34 * value2.M41,
+                M32 = value1.M31 * value2.M12 + value1.M32 * value2.M22 + value1.M33 * value2.M32 +
+                      value1.M34 * value2.M42,
+                M33 = value1.M31 * value2.M13 + value1.M32 * value2.M23 + value1.M33 * value2.M33 +
+                      value1.M34 * value2.M43,
+                M34 = value1.M31 * value2.M14 + value1.M32 * value2.M24 + value1.M33 * value2.M34 +
+                      value1.M34 * value2.M44,
+                M41 = value1.M41 * value2.M11 + value1.M42 * value2.M21 + value1.M43 * value2.M31 +
+                      value1.M44 * value2.M41,
+                M42 = value1.M41 * value2.M12 + value1.M42 * value2.M22 + value1.M43 * value2.M32 +
+                      value1.M44 * value2.M42,
+                M43 = value1.M41 * value2.M13 + value1.M42 * value2.M23 + value1.M43 * value2.M33 +
+                      value1.M44 * value2.M43,
+                M44 = value1.M41 * value2.M14 + value1.M42 * value2.M24 + value1.M43 * value2.M34 +
+                      value1.M44 * value2.M44
             };
             return result;
         }
@@ -487,7 +506,7 @@ namespace GameMath
         /// <returns>The scaled matrix.</returns>
         public static Matrix4x4 Multiply(Matrix4x4 value1, float value2)
         {
-            Matrix4x4 result = new Matrix4x4
+            var result = new Matrix4x4
             {
                 M11 = value1.M11 * value2,
                 M12 = value1.M12 * value2,
@@ -540,7 +559,7 @@ namespace GameMath
         // Token: 0x06000107 RID: 263 RVA: 0x00018318 File Offset: 0x00016518
         public static Matrix4x4 Transpose(Matrix4x4 matrix)
         {
-            Matrix4x4 result = new Matrix4x4
+            var result = new Matrix4x4
             {
                 M11 = matrix.M11,
                 M12 = matrix.M21,
@@ -568,7 +587,7 @@ namespace GameMath
         /// <returns>The matrix that contains the summed values.</returns>
         public static Matrix4x4 operator +(Matrix4x4 value1, Matrix4x4 value2)
         {
-            Matrix4x4 result = new Matrix4x4
+            var result = new Matrix4x4
             {
                 M11 = value1.M11 + value2.M11,
                 M12 = value1.M12 + value2.M12,
@@ -593,19 +612,35 @@ namespace GameMath
         /// <summary>Returns a value that indicates whether the specified matrices are equal.</summary>
         /// <param name="value1">The first matrix to compare.</param>
         /// <param name="value2">The second matrix to care</param>
-        /// <returns>true if <paramref name="value1">value1</paramref> and <paramref name="value2">value2</paramref> are equal; otherwise, false.</returns>
+        /// <returns>
+        ///     true if <paramref name="value1">value1</paramref> and <paramref name="value2">value2</paramref> are equal;
+        ///     otherwise, false.
+        /// </returns>
         public static bool operator ==(Matrix4x4 value1, Matrix4x4 value2)
         {
-            return value1.M11 == value2.M11 && value1.M22 == value2.M22 && value1.M33 == value2.M33 && value1.M44 == value2.M44 && value1.M12 == value2.M12 && value1.M13 == value2.M13 && value1.M14 == value2.M14 && value1.M21 == value2.M21 && value1.M23 == value2.M23 && value1.M24 == value2.M24 && value1.M31 == value2.M31 && value1.M32 == value2.M32 && value1.M34 == value2.M34 && value1.M41 == value2.M41 && value1.M42 == value2.M42 && value1.M43 == value2.M43;
+            return value1.M11 == value2.M11 && value1.M22 == value2.M22 && value1.M33 == value2.M33 &&
+                   value1.M44 == value2.M44 && value1.M12 == value2.M12 && value1.M13 == value2.M13 &&
+                   value1.M14 == value2.M14 && value1.M21 == value2.M21 && value1.M23 == value2.M23 &&
+                   value1.M24 == value2.M24 && value1.M31 == value2.M31 && value1.M32 == value2.M32 &&
+                   value1.M34 == value2.M34 && value1.M41 == value2.M41 && value1.M42 == value2.M42 &&
+                   value1.M43 == value2.M43;
         }
 
         /// <summary>Returns a value that indicates whether the specified matrices are not equal.</summary>
         /// <param name="value1">The first matrix to compare.</param>
         /// <param name="value2">The second matrix to compare.</param>
-        /// <returns>true if <paramref name="value1">value1</paramref> and <paramref name="value2">value2</paramref> are not equal; otherwise, false.</returns>
+        /// <returns>
+        ///     true if <paramref name="value1">value1</paramref> and <paramref name="value2">value2</paramref> are not equal;
+        ///     otherwise, false.
+        /// </returns>
         public static bool operator !=(Matrix4x4 value1, Matrix4x4 value2)
         {
-            return value1.M11 != value2.M11 || value1.M12 != value2.M12 || value1.M13 != value2.M13 || value1.M14 != value2.M14 || value1.M21 != value2.M21 || value1.M22 != value2.M22 || value1.M23 != value2.M23 || value1.M24 != value2.M24 || value1.M31 != value2.M31 || value1.M32 != value2.M32 || value1.M33 != value2.M33 || value1.M34 != value2.M34 || value1.M41 != value2.M41 || value1.M42 != value2.M42 || value1.M43 != value2.M43 || value1.M44 != value2.M44;
+            return value1.M11 != value2.M11 || value1.M12 != value2.M12 || value1.M13 != value2.M13 ||
+                   value1.M14 != value2.M14 || value1.M21 != value2.M21 || value1.M22 != value2.M22 ||
+                   value1.M23 != value2.M23 || value1.M24 != value2.M24 || value1.M31 != value2.M31 ||
+                   value1.M32 != value2.M32 || value1.M33 != value2.M33 || value1.M34 != value2.M34 ||
+                   value1.M41 != value2.M41 || value1.M42 != value2.M42 || value1.M43 != value2.M43 ||
+                   value1.M44 != value2.M44;
         }
 
         /// <summary>Returns the matrix that results from multiplying two matrices together.</summary>
@@ -615,22 +650,38 @@ namespace GameMath
         public static Matrix4x4 operator *(Matrix4x4 value1, Matrix4x4 value2)
         {
             Matrix4x4 result;
-            result.M11 = value1.M11 * value2.M11 + value1.M12 * value2.M21 + value1.M13 * value2.M31 + value1.M14 * value2.M41;
-            result.M12 = value1.M11 * value2.M12 + value1.M12 * value2.M22 + value1.M13 * value2.M32 + value1.M14 * value2.M42;
-            result.M13 = value1.M11 * value2.M13 + value1.M12 * value2.M23 + value1.M13 * value2.M33 + value1.M14 * value2.M43;
-            result.M14 = value1.M11 * value2.M14 + value1.M12 * value2.M24 + value1.M13 * value2.M34 + value1.M14 * value2.M44;
-            result.M21 = value1.M21 * value2.M11 + value1.M22 * value2.M21 + value1.M23 * value2.M31 + value1.M24 * value2.M41;
-            result.M22 = value1.M21 * value2.M12 + value1.M22 * value2.M22 + value1.M23 * value2.M32 + value1.M24 * value2.M42;
-            result.M23 = value1.M21 * value2.M13 + value1.M22 * value2.M23 + value1.M23 * value2.M33 + value1.M24 * value2.M43;
-            result.M24 = value1.M21 * value2.M14 + value1.M22 * value2.M24 + value1.M23 * value2.M34 + value1.M24 * value2.M44;
-            result.M31 = value1.M31 * value2.M11 + value1.M32 * value2.M21 + value1.M33 * value2.M31 + value1.M34 * value2.M41;
-            result.M32 = value1.M31 * value2.M12 + value1.M32 * value2.M22 + value1.M33 * value2.M32 + value1.M34 * value2.M42;
-            result.M33 = value1.M31 * value2.M13 + value1.M32 * value2.M23 + value1.M33 * value2.M33 + value1.M34 * value2.M43;
-            result.M34 = value1.M31 * value2.M14 + value1.M32 * value2.M24 + value1.M33 * value2.M34 + value1.M34 * value2.M44;
-            result.M41 = value1.M41 * value2.M11 + value1.M42 * value2.M21 + value1.M43 * value2.M31 + value1.M44 * value2.M41;
-            result.M42 = value1.M41 * value2.M12 + value1.M42 * value2.M22 + value1.M43 * value2.M32 + value1.M44 * value2.M42;
-            result.M43 = value1.M41 * value2.M13 + value1.M42 * value2.M23 + value1.M43 * value2.M33 + value1.M44 * value2.M43;
-            result.M44 = value1.M41 * value2.M14 + value1.M42 * value2.M24 + value1.M43 * value2.M34 + value1.M44 * value2.M44;
+            result.M11 = value1.M11 * value2.M11 + value1.M12 * value2.M21 + value1.M13 * value2.M31 +
+                         value1.M14 * value2.M41;
+            result.M12 = value1.M11 * value2.M12 + value1.M12 * value2.M22 + value1.M13 * value2.M32 +
+                         value1.M14 * value2.M42;
+            result.M13 = value1.M11 * value2.M13 + value1.M12 * value2.M23 + value1.M13 * value2.M33 +
+                         value1.M14 * value2.M43;
+            result.M14 = value1.M11 * value2.M14 + value1.M12 * value2.M24 + value1.M13 * value2.M34 +
+                         value1.M14 * value2.M44;
+            result.M21 = value1.M21 * value2.M11 + value1.M22 * value2.M21 + value1.M23 * value2.M31 +
+                         value1.M24 * value2.M41;
+            result.M22 = value1.M21 * value2.M12 + value1.M22 * value2.M22 + value1.M23 * value2.M32 +
+                         value1.M24 * value2.M42;
+            result.M23 = value1.M21 * value2.M13 + value1.M22 * value2.M23 + value1.M23 * value2.M33 +
+                         value1.M24 * value2.M43;
+            result.M24 = value1.M21 * value2.M14 + value1.M22 * value2.M24 + value1.M23 * value2.M34 +
+                         value1.M24 * value2.M44;
+            result.M31 = value1.M31 * value2.M11 + value1.M32 * value2.M21 + value1.M33 * value2.M31 +
+                         value1.M34 * value2.M41;
+            result.M32 = value1.M31 * value2.M12 + value1.M32 * value2.M22 + value1.M33 * value2.M32 +
+                         value1.M34 * value2.M42;
+            result.M33 = value1.M31 * value2.M13 + value1.M32 * value2.M23 + value1.M33 * value2.M33 +
+                         value1.M34 * value2.M43;
+            result.M34 = value1.M31 * value2.M14 + value1.M32 * value2.M24 + value1.M33 * value2.M34 +
+                         value1.M34 * value2.M44;
+            result.M41 = value1.M41 * value2.M11 + value1.M42 * value2.M21 + value1.M43 * value2.M31 +
+                         value1.M44 * value2.M41;
+            result.M42 = value1.M41 * value2.M12 + value1.M42 * value2.M22 + value1.M43 * value2.M32 +
+                         value1.M44 * value2.M42;
+            result.M43 = value1.M41 * value2.M13 + value1.M42 * value2.M23 + value1.M43 * value2.M33 +
+                         value1.M44 * value2.M43;
+            result.M44 = value1.M41 * value2.M14 + value1.M42 * value2.M24 + value1.M43 * value2.M34 +
+                         value1.M44 * value2.M44;
             return result;
         }
 
@@ -663,7 +714,11 @@ namespace GameMath
         /// <summary>Subtracts each element in a second matrix from its corresponding element in a first matrix.</summary>
         /// <param name="value1">The first matrix.</param>
         /// <param name="value2">The second matrix.</param>
-        /// <returns>The matrix containing the values that result from subtracting each element in <paramref name="value2">value2</paramref> from its corresponding element in <paramref name="value1">value1</paramref>.</returns>
+        /// <returns>
+        ///     The matrix containing the values that result from subtracting each element in
+        ///     <paramref name="value2">value2</paramref> from its corresponding element in
+        ///     <paramref name="value1">value1</paramref>.
+        /// </returns>
         public static Matrix4x4 operator -(Matrix4x4 value1, Matrix4x4 value2)
         {
             Matrix4x4 result;
@@ -715,41 +770,36 @@ namespace GameMath
         /// <returns>The string representation of this matrix.</returns>
         public override string ToString()
         {
-            var currentCulture = System.Globalization.CultureInfo.CurrentCulture;
-            return string.Format(currentCulture, "{{ {{M11:{0} M12:{1} M13:{2} M14:{3}}} {{M21:{4} M22:{5} M23:{6} M24:{7}}} {{M31:{8} M32:{9} M33:{10} M34:{11}}} {{M41:{12} M42:{13} M43:{14} M44:{15}}} }}", new object[]
-            {
-                M11.ToString(currentCulture),
-                M12.ToString(currentCulture),
-                M13.ToString(currentCulture),
-                M14.ToString(currentCulture),
-                M21.ToString(currentCulture),
-                M22.ToString(currentCulture),
-                M23.ToString(currentCulture),
-                M24.ToString(currentCulture),
-                M31.ToString(currentCulture),
-                M32.ToString(currentCulture),
-                M33.ToString(currentCulture),
-                M34.ToString(currentCulture),
-                M41.ToString(currentCulture),
-                M42.ToString(currentCulture),
-                M43.ToString(currentCulture),
-                M44.ToString(currentCulture)
-            });
+            var currentCulture = CultureInfo.CurrentCulture;
+            return string.Format(currentCulture,
+                "{{ {{M11:{0} M12:{1} M13:{2} M14:{3}}} {{M21:{4} M22:{5} M23:{6} M24:{7}}} {{M31:{8} M32:{9} M33:{10} M34:{11}}} {{M41:{12} M42:{13} M43:{14} M44:{15}}} }}",
+                M11.ToString(currentCulture), M12.ToString(currentCulture), M13.ToString(currentCulture),
+                M14.ToString(currentCulture), M21.ToString(currentCulture), M22.ToString(currentCulture),
+                M23.ToString(currentCulture), M24.ToString(currentCulture), M31.ToString(currentCulture),
+                M32.ToString(currentCulture), M33.ToString(currentCulture), M34.ToString(currentCulture),
+                M41.ToString(currentCulture), M42.ToString(currentCulture), M43.ToString(currentCulture),
+                M44.ToString(currentCulture));
         }
 
         /// <summary>Returns the hash code for this instance.</summary>
         /// <returns>The hash code.</returns>
         public override int GetHashCode()
         {
-            return this.M11.GetHashCode() + this.M12.GetHashCode() + this.M13.GetHashCode() + this.M14.GetHashCode() + this.M21.GetHashCode() + this.M22.GetHashCode() + this.M23.GetHashCode() + this.M24.GetHashCode() + this.M31.GetHashCode() + this.M32.GetHashCode() + this.M33.GetHashCode() + this.M34.GetHashCode() + this.M41.GetHashCode() + this.M42.GetHashCode() + this.M43.GetHashCode() + this.M44.GetHashCode();
+            return M11.GetHashCode() + M12.GetHashCode() + M13.GetHashCode() + M14.GetHashCode() + M21.GetHashCode() +
+                   M22.GetHashCode() + M23.GetHashCode() + M24.GetHashCode() + M31.GetHashCode() + M32.GetHashCode() +
+                   M33.GetHashCode() + M34.GetHashCode() + M41.GetHashCode() + M42.GetHashCode() + M43.GetHashCode() +
+                   M44.GetHashCode();
         }
 
         /// <summary>Returns a value that indicates whether this instance and a specified object are equal.</summary>
         /// <param name="obj">The object to compare with the current instance.</param>
-        /// <returns>true if the current instance and <paramref name="obj">obj</paramref> are equal; otherwise, false. If <paramref name="obj">obj</paramref> is null, the method returns false.</returns>
+        /// <returns>
+        ///     true if the current instance and <paramref name="obj">obj</paramref> are equal; otherwise, false. If
+        ///     <paramref name="obj">obj</paramref> is null, the method returns false.
+        /// </returns>
         public override bool Equals(object obj)
         {
-            return obj is Matrix4x4 && Equals((Matrix4x4)obj);
+            return obj is Matrix4x4 && Equals((Matrix4x4) obj);
         }
 
         /// <summary>Returns a value that indicates whether this instance and another 4x4 matrix are equal.</summary>
@@ -757,7 +807,10 @@ namespace GameMath
         /// <returns>true if the two matrices are equal; otherwise, false.</returns>
         public bool Equals(Matrix4x4 other)
         {
-            return M11 == other.M11 && M22 == other.M22 && M33 == other.M33 && M44 == other.M44 && M12 == other.M12 && M13 == other.M13 && M14 == other.M14 && M21 == other.M21 && M23 == other.M23 && M24 == other.M24 && M31 == other.M31 && M32 == other.M32 && M34 == other.M34 && M41 == other.M41 && M42 == other.M42 && M43 == other.M43;
+            return M11 == other.M11 && M22 == other.M22 && M33 == other.M33 && M44 == other.M44 && M12 == other.M12 &&
+                   M13 == other.M13 && M14 == other.M14 && M21 == other.M21 && M23 == other.M23 && M24 == other.M24 &&
+                   M31 == other.M31 && M32 == other.M32 && M34 == other.M34 && M41 == other.M41 && M42 == other.M42 &&
+                   M43 == other.M43;
         }
     }
 }

@@ -1,85 +1,84 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace GameMath
 {
     /// <summary>
-    /// Represents a 3x4 fields Matrix.
+    ///     Represents a 3x4 fields Matrix.
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct Matrix3x4
     {
         /// <summary>
-        /// The M11
+        ///     The M11
         /// </summary>
         public float M11;
 
         /// <summary>
-        /// The M12
+        ///     The M12
         /// </summary>
         public float M12;
 
         /// <summary>
-        /// The M13
+        ///     The M13
         /// </summary>
         public float M13;
 
         /// <summary>
-        /// The M14
+        ///     The M14
         /// </summary>
         public float M14;
 
         /// <summary>
-        /// The M21
+        ///     The M21
         /// </summary>
         public float M21;
 
         /// <summary>
-        /// The M22
+        ///     The M22
         /// </summary>
         public float M22;
 
         /// <summary>
-        /// The M23
+        ///     The M23
         /// </summary>
         public float M23;
 
         /// <summary>
-        /// The M24
+        ///     The M24
         /// </summary>
         public float M24;
 
         /// <summary>
-        /// The M31
+        ///     The M31
         /// </summary>
         public float M31;
 
         /// <summary>
-        /// The M32
+        ///     The M32
         /// </summary>
         public float M32;
 
         /// <summary>
-        /// The M33
+        ///     The M33
         /// </summary>
         public float M33;
 
         /// <summary>
-        /// The M34
+        ///     The M34
         /// </summary>
         public float M34;
 
         /// <summary>
-        /// Gets the left.
+        ///     Gets the left.
         /// </summary>
         /// <returns></returns>
         public Vector3 GetLeft()
         {
-            return GetRight() * (-1f);
+            return GetRight() * -1f;
         }
 
         /// <summary>
-        /// Gets the right.
+        ///     Gets the right.
         /// </summary>
         /// <returns></returns>
         public Vector3 GetRight()
@@ -88,7 +87,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Gets up.
+        ///     Gets up.
         /// </summary>
         /// <returns></returns>
         public Vector3 GetUp()
@@ -97,25 +96,25 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Gets down.
+        ///     Gets down.
         /// </summary>
         /// <returns></returns>
         public Vector3 GetDown()
         {
-            return GetUp() * (-1f);
+            return GetUp() * -1f;
         }
 
         /// <summary>
-        /// Gets the forward.
+        ///     Gets the forward.
         /// </summary>
         /// <returns></returns>
         public Vector3 GetForward()
         {
-            return GetBackward() * (-1f);
+            return GetBackward() * -1f;
         }
 
         /// <summary>
-        /// Gets the backward.
+        ///     Gets the backward.
         /// </summary>
         /// <returns></returns>
         public Vector3 GetBackward()

@@ -1,42 +1,45 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace GameMath
 {
     /// <summary>
-    /// Represents a 2 dimensional vector
+    ///     Represents a 2 dimensional vector
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct Vector2
     {
         /// <summary>
-        /// Represents an ampty vector2
+        ///     Represents an ampty vector2
         /// </summary>
-        public static readonly Vector2 Empty = new Vector2();
+        public static readonly Vector2 Empty;
+
         /// <summary>
-        /// Represents an invalid vector2
+        ///     Represents an invalid vector2
         /// </summary>
         public static readonly Vector2 Invalid = new Vector2(float.NaN, float.NaN);
+
         /// <summary>
-        /// The size of a vector2 in memory
+        ///     The size of a vector2 in memory
         /// </summary>
         public static readonly int Size = 8;
 
         /// <summary>
-        /// The x
+        ///     The x
         /// </summary>
         public float X;
+
         /// <summary>
-        /// The y
+        ///     The y
         /// </summary>
         public float Y;
 
         /// <summary>
-        /// Gets or sets the <see cref="System.Single"/> at the specified index.
+        ///     Gets or sets the <see cref="System.Single" /> at the specified index.
         /// </summary>
         /// <value>
-        /// The <see cref="System.Single"/>.
+        ///     The <see cref="System.Single" />.
         /// </value>
         /// <param name="index">The index.</param>
         /// <returns></returns>
@@ -44,22 +47,36 @@ namespace GameMath
         {
             get
             {
-                if (index == 0) return X;
-                else if (index == 1) return Y;
-                else if (index < 0) return X;
-                else return Y;
+                switch (index)
+                {
+                    case 0:
+                        return X;
+                    case 1:
+                        return Y;
+                }
+
+                return index < 0 ? X : Y;
             }
             set
             {
-                if (index == 0) X = value;
-                else if (index == 1) Y = value;
-                else if (index < 0) X = value;
-                else Y = value;
+                switch (index)
+                {
+                    case 0:
+                        X = value;
+                        break;
+                    case 1:
+                        Y = value;
+                        break;
+                    default:
+                        if (index < 0) X = value;
+                        else Y = value;
+                        break;
+                }
             }
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector2"/> struct.
+        ///     Initializes a new instance of the <see cref="Vector2" /> struct.
         /// </summary>
         /// <param name="array">The array.</param>
         public Vector2(float[] array)
@@ -76,7 +93,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector2"/> struct.
+        ///     Initializes a new instance of the <see cref="Vector2" /> struct.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -87,29 +104,29 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector2"/> struct.
+        ///     Initializes a new instance of the <see cref="Vector2" /> struct.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         public Vector2(double x, double y)
         {
-            X = (float)x;
-            Y = (float)y;
+            X = (float) x;
+            Y = (float) y;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector2"/> struct.
+        ///     Initializes a new instance of the <see cref="Vector2" /> struct.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         public Vector2(int x, int y)
         {
-            X = (float)x;
-            Y = (float)y;
+            X = x;
+            Y = y;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector2"/> struct.
+        ///     Initializes a new instance of the <see cref="Vector2" /> struct.
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         public Vector2(byte[] bytes)
@@ -125,37 +142,35 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector2"/> struct.
+        ///     Initializes a new instance of the <see cref="Vector2" /> struct.
         /// </summary>
         /// <param name="dword">The dword.</param>
         public Vector2(int dword)
         {
-            X = (float)(dword & 65535); // LO-WORD
-            Y = (float)(dword >> 16 & 65535); // HI-WORD
+            X = dword & 65535; // LO-WORD
+            Y = (dword >> 16) & 65535; // HI-WORD
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        ///     Determines whether the specified <see cref="System.Object" />, is equal to this instance.
         /// </summary>
         /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
         public override bool Equals(object obj)
         {
             if (obj is Vector2)
-            {
-                return (Vector2)obj == this;
-            }
+                return (Vector2) obj == this;
 
             return base.Equals(obj);
         }
 
         /// <summary>
-        /// Returns a hash code for this instance.
+        ///     Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        ///     A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
         public override int GetHashCode()
         {
@@ -163,18 +178,18 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        ///     Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {
-            return "{X = " + X.ToString() + ", Y = " + Y.ToString() + "}";
+            return "{X = " + X + ", Y = " + Y + "}";
         }
 
         /// <summary>
-        /// Adds the specified vec.
+        ///     Adds the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Add(Vector2 vec)
@@ -184,7 +199,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Adds the specified vec.
+        ///     Adds the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Add(float vec)
@@ -194,7 +209,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Adds the specified vec.
+        ///     Adds the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Add(int vec)
@@ -204,7 +219,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Subtracts the specified vec.
+        ///     Subtracts the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Subtract(Vector2 vec)
@@ -214,7 +229,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Subtracts the specified vec.
+        ///     Subtracts the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Subtract(float vec)
@@ -224,7 +239,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Subtracts the specified vec.
+        ///     Subtracts the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Subtract(int vec)
@@ -234,7 +249,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Multiplies the specified vec.
+        ///     Multiplies the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Multiply(Vector2 vec)
@@ -244,7 +259,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Multiplies the specified vec.
+        ///     Multiplies the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Multiply(float vec)
@@ -254,7 +269,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Multiplies the specified vec.
+        ///     Multiplies the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Multiply(int vec)
@@ -264,7 +279,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Divides the specified vec.
+        ///     Divides the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Divide(Vector2 vec)
@@ -277,7 +292,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Divides the specified vec.
+        ///     Divides the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Divide(float vec)
@@ -289,12 +304,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Divides the specified vec.
+        ///     Divides the specified vec.
         /// </summary>
         /// <param name="vec">The vec.</param>
         public void Divide(int vec)
         {
-            float tmp = (float)vec;
+            float tmp = vec;
             if (tmp == 0.0f) tmp = float.Epsilon;
 
             X /= tmp;
@@ -302,7 +317,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Clones this instance.
+        ///     Clones this instance.
         /// </summary>
         /// <returns></returns>
         public Vector2 Clone()
@@ -311,7 +326,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Clears this instance.
+        ///     Clears this instance.
         /// </summary>
         public void Clear()
         {
@@ -320,7 +335,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Distances to.
+        ///     Distances to.
         /// </summary>
         /// <param name="vec">The vec.</param>
         /// <returns></returns>
@@ -330,7 +345,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Dots the product.
+        ///     Dots the product.
         /// </summary>
         /// <param name="vec">The vec.</param>
         /// <returns></returns>
@@ -340,7 +355,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Crosses the product.
+        ///     Crosses the product.
         /// </summary>
         /// <param name="vec">The vec.</param>
         /// <returns></returns>
@@ -350,7 +365,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Gets the bytes.
+        ///     Gets the bytes.
         /// </summary>
         /// <returns></returns>
         public byte[] GetBytes()
@@ -362,19 +377,19 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Returns the vecors length
+        ///     Returns the vecors length
         /// </summary>
         /// <returns></returns>
         public float Length()
         {
-            return (float)Math.Sqrt(X * X + Y * Y);
+            return (float) Math.Sqrt(X * X + Y * Y);
         }
 
         /// <summary>
-        /// Determines whether this instance is empty.
+        ///     Determines whether this instance is empty.
         /// </summary>
         /// <returns>
-        ///   <c>true</c> if this instance is empty; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is empty; otherwise, <c>false</c>.
         /// </returns>
         public bool IsEmpty()
         {
@@ -382,19 +397,19 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Reals the is empty.
+        ///     Reals the is empty.
         /// </summary>
         /// <returns></returns>
         public bool RealIsEmpty()
         {
-            return (X < float.Epsilon && X > (-float.Epsilon)) && (Y < float.Epsilon && Y > (-float.Epsilon));
+            return X < float.Epsilon && X > -float.Epsilon && Y < float.Epsilon && Y > -float.Epsilon;
         }
 
         /// <summary>
-        /// Determines whether [is na n].
+        ///     Determines whether [is na n].
         /// </summary>
         /// <returns>
-        ///   <c>true</c> if [is na n]; otherwise, <c>false</c>.
+        ///     <c>true</c> if [is na n]; otherwise, <c>false</c>.
         /// </returns>
         public bool IsNaN()
         {
@@ -402,10 +417,10 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Determines whether this instance is infinity.
+        ///     Determines whether this instance is infinity.
         /// </summary>
         /// <returns>
-        ///   <c>true</c> if this instance is infinity; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is infinity; otherwise, <c>false</c>.
         /// </returns>
         public bool IsInfinity()
         {
@@ -413,26 +428,25 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Returns true if ... is valid.
+        ///     Returns true if ... is valid.
         /// </summary>
         /// <returns>
-        ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is valid; otherwise, <c>false</c>.
         /// </returns>
         public bool IsValid()
         {
             if (IsNaN()) return false;
-            if (IsInfinity()) return false;
 
-            return true;
+            return !IsInfinity();
         }
 
         /// <summary>
-        /// Implements the operator +.
+        ///     Implements the operator +.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector2 operator +(Vector2 left, Vector2 right)
         {
@@ -440,12 +454,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator +.
+        ///     Implements the operator +.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector2 operator +(Vector2 left, float right)
         {
@@ -453,12 +467,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator +.
+        ///     Implements the operator +.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector2 operator +(Vector2 left, int right)
         {
@@ -466,12 +480,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator -.
+        ///     Implements the operator -.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector2 operator -(Vector2 left, Vector2 right)
         {
@@ -479,12 +493,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator -.
+        ///     Implements the operator -.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector2 operator -(Vector2 left, float right)
         {
@@ -492,12 +506,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator -.
+        ///     Implements the operator -.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector2 operator -(Vector2 left, int right)
         {
@@ -505,12 +519,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator *.
+        ///     Implements the operator *.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector2 operator *(Vector2 left, Vector2 right)
         {
@@ -518,12 +532,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator *.
+        ///     Implements the operator *.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector2 operator *(Vector2 left, float right)
         {
@@ -531,12 +545,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator *.
+        ///     Implements the operator *.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector2 operator *(Vector2 left, int right)
         {
@@ -544,12 +558,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator /.
+        ///     Implements the operator /.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector2 operator /(Vector2 left, Vector2 right)
         {
@@ -557,12 +571,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator /.
+        ///     Implements the operator /.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector2 operator /(Vector2 left, float right)
         {
@@ -570,12 +584,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator /.
+        ///     Implements the operator /.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static Vector2 operator /(Vector2 left, int right)
         {
@@ -583,12 +597,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator ==.
+        ///     Implements the operator ==.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator ==(Vector2 left, Vector2 right)
         {
@@ -596,12 +610,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator ==.
+        ///     Implements the operator ==.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator ==(Vector2 left, float right)
         {
@@ -609,12 +623,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator ==.
+        ///     Implements the operator ==.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator ==(Vector2 left, int right)
         {
@@ -622,12 +636,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator !=.
+        ///     Implements the operator !=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator !=(Vector2 left, Vector2 right)
         {
@@ -635,12 +649,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator !=.
+        ///     Implements the operator !=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator !=(Vector2 left, float right)
         {
@@ -648,12 +662,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator !=.
+        ///     Implements the operator !=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator !=(Vector2 left, int right)
         {
@@ -661,12 +675,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &lt;.
+        ///     Implements the operator &lt;.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator <(Vector2 left, Vector2 right)
         {
@@ -674,12 +688,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &lt;.
+        ///     Implements the operator &lt;.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator <(Vector2 left, float right)
         {
@@ -687,12 +701,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &lt;.
+        ///     Implements the operator &lt;.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator <(Vector2 left, int right)
         {
@@ -700,12 +714,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &gt;.
+        ///     Implements the operator &gt;.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator >(Vector2 left, Vector2 right)
         {
@@ -713,12 +727,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &gt;.
+        ///     Implements the operator &gt;.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator >(Vector2 left, float right)
         {
@@ -726,12 +740,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &gt;.
+        ///     Implements the operator &gt;.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator >(Vector2 left, int right)
         {
@@ -739,12 +753,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &lt;=.
+        ///     Implements the operator &lt;=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator <=(Vector2 left, Vector2 right)
         {
@@ -752,12 +766,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &lt;=.
+        ///     Implements the operator &lt;=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator <=(Vector2 left, float right)
         {
@@ -765,12 +779,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &lt;=.
+        ///     Implements the operator &lt;=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator <=(Vector2 left, int right)
         {
@@ -778,12 +792,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &gt;=.
+        ///     Implements the operator &gt;=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator >=(Vector2 left, Vector2 right)
         {
@@ -791,12 +805,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &gt;=.
+        ///     Implements the operator &gt;=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator >=(Vector2 left, float right)
         {
@@ -804,12 +818,12 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Implements the operator &gt;=.
+        ///     Implements the operator &gt;=.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        /// The result of the operator.
+        ///     The result of the operator.
         /// </returns>
         public static bool operator >=(Vector2 left, int right)
         {
@@ -817,7 +831,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Distances the specified left.
+        ///     Distances the specified left.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -829,7 +843,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Dots the product.
+        ///     Dots the product.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -841,7 +855,7 @@ namespace GameMath
         }
 
         /// <summary>
-        /// Crosses the product.
+        ///     Crosses the product.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
