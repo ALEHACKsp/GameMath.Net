@@ -1,6 +1,6 @@
 # GameMath.Net
 
-This library provides extended mathematics especially useful when developing games or game related apps.
+Provides numerical types such as Vector3 and Matrix4x4 with functions to manipulate them.
 
 ### Nuget
 Use GameMath.Net only when you do not want to include System.Numerics.Vectors
